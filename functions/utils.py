@@ -24,3 +24,12 @@ def get_crypto_market_data():
         return data
     else:
         return []
+
+
+def get_crypto_data(crypto):
+    url = f"https://api.coingecko.com/api/v3/coins/{crypto}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None

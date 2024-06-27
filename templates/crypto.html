@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ data.name }} {% endblock %}
+
+{% block content %}
+    <div class="w-screen flex flex-col items-center pt-6 h-screen pt-4 px-12 gap-4" style="background-color: #1f2937; color: #dca54c">
+        {% if not data %}
+            <div class="w-full h-[60px] flex items-center justify-center bg-red-500 text-white rounded-lg px-1">
+                <span>Rate limit exceeded. Please try again in a minute.</span>
+            </div>
+        {% else %}
+            <div class="w-full h-[100px] border-b-2 border-gray flex items-center text-white justify-between px-6">
+                <div class="flex items-center gap-4">
+                    <img src="{{ data.image.small }}" alt="">
+                    <h1 class="text-4xl font-bold">{{ data.name }} ({{ data.symbol.upper() }})</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-4xl font-bold {% if data.market_data.price_change_percentage_24h > 0 %}text-green-500{% else %}text-red-500{% endif %}">{{ "{:,}".format(data.market_data.current_price.usd) }}$</h3>
+                        <span class="text-sm {% if data.market_data.price_change_percentage_24h > 0 %}text-green-500{% else %}text-red-500{% endif %}">24h: {% if data.market_data.price_change_percentage_24h > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_24h) }}%</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-white">ATH: {{ "{:,.2f}".format(data.market_data.ath.usd) }}$</span>
+                        <span class="font-bold text-white">ATL: {{ "{:,.2f}".format(data.market_data.atl.usd) }}$</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center gap-6">
+                <div class="w-[400px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Market Cap</h3>
+                    <h3 class="text-gray-500 text-3xl font-extrabold text-center">{{ "{:,}".format(data.market_data.market_cap.usd) }}$</h3>
+                </div>
+                <div class="w-[400px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Total Volume</h3>
+                    <h3 class="text-gray-500 text-3xl font-extrabold text-center">{{ "{:,}".format(data.market_data.total_volume.usd) }}$</h3>
+                </div>
+                <div class="w-[400px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Circulating Supply</h3>
+                    <h3 class="text-gray-500 text-3xl font-extrabold text-center">{{ "{:,}".format(data.market_data.circulating_supply) }}</h3>
+                </div>
+            </div>
+            <div class="flex justify-center gap-6">
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 24h</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_24h > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_24h > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_24h) }}%</h3>
+                </div>
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 7d</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_7d > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_7d > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_7d) }}%</h3>
+                </div>
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 30d</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_30d > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_30d > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_30d) }}%</h3>
+                </div>
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 60d</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_60d > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_60d > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_60d) }}%</h3>
+                </div>
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 200d</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_200d > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_200d > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_200d) }}%</h3>
+                </div>
+                <div class="w-[200px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">Price 1y</h3>
+                    <h3 class="text-3xl font-extrabold text-center {% if data.market_data.price_change_percentage_1y > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if data.market_data.price_change_percentage_1y > 0 %}+{% endif %}{{ "{:,.2f}".format(data.market_data.price_change_percentage_1y) }}%</h3>
+                </div>
+            </div>
+            <div class="flex justify-center gap-6">
+                <div class="w-[400px] h-[100px] border-r-2 border-gray flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">24h High</h3>
+                    <h3 class="text-green-500 text-3xl font-extrabold text-center">{{ "{:,}".format(data.market_data.high_24h.usd) }}$</h3>
+                </div>
+                <div class="w-[400px] h-[100px] flex flex-col justify-center">
+                    <h3 class="text-white text-2xl font-bold text-center">24h Low</h3>
+                    <h3 class="text-red-500 text-3xl font-extrabold text-center">{{ "{:,}".format(data.market_data.low_24h.usd) }}$</h3>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

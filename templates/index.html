@@ -26,7 +26,7 @@
                         <span class="w-[45px] font-bold">{{ coin.market_cap_rank }}</span>
                         <div class="w-[250px] flex items-center">
                             <img src="{{ coin.image }}" alt="" class="w-[20px] h-[20px] mr-2">
-                            <span class="">{{ coin.name }}</span>
+                            <a href="/{{ coin.id }}">{{ coin.name }}</a>
                         </div>
                         <span class="text-center w-[100px] text-white">{{ coin.symbol.upper() }}</span>
                         <span class="text-center w-[150px] text-white">{{ "{:,}".format(coin.current_price) }}$</span>
