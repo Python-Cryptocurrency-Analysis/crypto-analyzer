@@ -5,19 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Crypto Analyzer - {% block title %} {% endblock %}</title>
+
+    <style>
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
 </head>
 <body>
-    <nav class="bg-gray-800 text-white p-4 flex justify-between px-12 py-4">
-        <h1 class="text-2xl font-bold">Crypto Analyzer</h1>
-        <div class="flex gap-10 text-lg tracking-wider">
-            <a href="/bitcoin" class="text-white mx-2">Bitcoin</a>
-            <a href="/solana" class="text-white mx-2">Solana</a>
-            <a href="/ethereum" class="text-white mx-2">Ethereum</a>
-            <a href="/xrp" class="text-white mx-2">XRP</a>
-            <a href="/bnb" class="text-white mx-2">BNB</a>
-            <a href="/dogecoin" class="text-white mx-2">Dogecoin</a>
+    <div class="w-screen h-screen flex flex-col overflow-hidden">
+        <nav class="text-white p-4 flex justify-between items-center px-12 py-4 h-[80px]" style="background-color: #1f2937;">
+            <div>
+                <h1 class="text-2xl font-bold">Crypto Analyzer</h1>
+                <span>Analyze the performance of cryptocurrencies</span>
+            </div>
+            <div class="flex gap-10 text-lg tracking-wider">
+                <a href="/bitcoin" class="text-white mx-2">Bitcoin</a>
+                <a href="/solana" class="text-white mx-2">Solana</a>
+                <a href="/ethereum" class="text-white mx-2">Ethereum</a>
+                <a href="/xrp" class="text-white mx-2">XRP</a>
+                <a href="/bnb" class="text-white mx-2">BNB</a>
+                <a href="/dogecoin" class="text-white mx-2">Dogecoin</a>
+            </div>
+        </nav>
+        <div class="w-screen text-white text-lg tracking-wide h-full">
+            {% block content %} {% endblock %}
         </div>
-    </nav>
-    {% block content %} {% endblock %}
+    </div>
 </body>
 </html>

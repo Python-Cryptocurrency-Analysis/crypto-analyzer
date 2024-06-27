@@ -3,5 +3,53 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <h1>Crypto Analyzer</h1>
+    <div class="flex flex-col justify-center items-center pt-6 h-screen"  style="background-color: #1f2937; color: #dca54c">
+        <div class="w-[1500px] h-full overflow-y-auto pb-24 rounded-lg">
+            {% if not list %}
+                <div class="w-full h-[60px] flex items-center justify-center bg-red-500 text-white rounded-lg px-1">
+                    <span>Rate limit exceeded. Please try again in a minute.</span>
+                </div>
+            {% else %}
+                <div class="w-full h-[50px] flex gap-4 items-center rounded-lg font-bold px-1">
+                    <span class="w-[45px]">#</span>
+                    <span class="w-[250px]">Name</span>
+                    <span class="text-center w-[100px]">Symbol</span>
+                    <span class="text-center w-[150px]">Price</span>
+                    <span class="text-center w-[100px]">Price 24h</span>
+                    <span class="text-center w-[100px]">Price 7d</span>
+                    <span class="text-center w-[100px]">Price 30d</span>
+                    <span class="text-center w-[250px]">Market Cap</span>
+                    <span class="text-center w-[250px]">Total Volume</span>
+                </div>
+                {% for coin in list %}
+                    <div class="w-full h-[60px] flex gap-4 items-center {% if coin.market_cap_rank % 2 == 0 %}bg-[#1f2937]{% else %}bg-[#2a3647]{% endif %} rounded-lg px-1">
+                        <span class="w-[45px] font-bold">{{ coin.market_cap_rank }}</span>
+                        <div class="w-[250px] flex items-center">
+                            <img src="{{ coin.image }}" alt="" class="w-[20px] h-[20px] mr-2">
+                            <span class="">{{ coin.name }}</span>
+                        </div>
+                        <span class="text-center w-[100px] text-white">{{ coin.symbol.upper() }}</span>
+                        <span class="text-center w-[150px] text-white">{{ "{:,}".format(coin.current_price) }}$</span>
+                        {% if coin.price_change_percentage_24h_in_currency > 0 %}
+                            <span class="text-center w-[100px] text-green-500">+{{ '{0:.2g}'.format(coin.price_change_percentage_24h_in_currency) }}%</span>
+                        {% else %}
+                            <span class="text-center w-[100px] text-red-500">{{ '{0:.2g}'.format(coin.price_change_percentage_24h_in_currency) }}%</span>
+                        {% endif %}
+                        {% if coin.price_change_percentage_7d_in_currency > 0 %}
+                            <span class="text-center w-[100px] text-green-500">+{{ '{0:.2g}'.format(coin.price_change_percentage_7d_in_currency) }}%</span>
+                        {% else %}
+                            <span class="text-center w-[100px] text-red-500">{{ '{0:.2g}'.format(coin.price_change_percentage_7d_in_currency) }}%</span>
+                        {% endif %}
+                        {% if coin.price_change_percentage_30d_in_currency > 0 %}
+                            <span class="text-center w-[100px] text-green-500">+{{ '{0:.2g}'.format(coin.price_change_percentage_30d_in_currency) }}%</span>
+                        {% else %}
+                            <span class="text-center w-[100px] text-red-500">{{ '{0:.2g}'.format(coin.price_change_percentage_30d_in_currency) }}%</span>
+                        {% endif %}
+                        <span class="text-center w-[250px] text-white">{{ "{:,}".format(coin.market_cap) }}$</span>
+                        <span class="text-center w-[250px] text-white">{{ "{:,}".format(coin.total_volume) }}$</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
