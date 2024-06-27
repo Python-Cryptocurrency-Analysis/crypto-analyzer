@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from functions.utils import get_crypto_market_data, get_crypto_data, get_crypto_market_chart
+from functions.utils import get_crypto_market_data, get_crypto_data, get_crypto_market_chart,get_global_crypto_data
 
 app = Flask(__name__)
 
@@ -21,6 +21,21 @@ def chart_data(crypto):
     else:
         return jsonify({"error": "No data found"}), 404
 
+@app.route('/global_market_cap')
+def global_market_cap():
+    data = get_global_crypto_data()
+    if data:
+        return render_template('global_market_cap.html', data=data)
+    else:
+        return jsonify({"error": "No data found"}), 404
+
+@app.route('/api/global_market_cap_data', methods=['GET'])
+def global_market_cap_data():
+    data = get_global_crypto_data()
+    if data:
+        return jsonify(data)
+    else:
+        return jsonify({"error": "No data found"}), 404
 
 
 if __name__ == '__main__':

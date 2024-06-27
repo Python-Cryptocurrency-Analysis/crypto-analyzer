@@ -40,3 +40,17 @@ def get_crypto_market_chart(crypto):
         return response.json()
     else:
         return None
+        
+def get_global_crypto_data():
+    url = "https://api.coingecko.com/api/v3/global"
+    response = requests.get(url)
+    if response.status_code == 200:
+        res = response.json()
+        data = {
+            "active_cryptocurrencies": res["data"]['active_cryptocurrencies'],
+            "market_cap_percentage": res["data"]['market_cap_percentage'],
+            "market_cap_change_percentage_24h_usd": res["data"]["market_cap_change_percentage_24h_usd"]
+        }
+        return data
+    else:
+        return None
