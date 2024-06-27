@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Crypto Analyzer - {% block title %} {% endblock %}</title>
+</head>
+<body>
+    <nav class="bg-gray-800 text-white p-4 flex justify-between px-12 py-4">
+        <h1 class="text-2xl font-bold">Crypto Analyzer</h1>
+        <div class="flex gap-10 text-lg tracking-wider">
+            <a href="/bitcoin" class="text-white mx-2">Bitcoin</a>
+            <a href="/solana" class="text-white mx-2">Solana</a>
+            <a href="/ethereum" class="text-white mx-2">Ethereum</a>
+            <a href="/xrp" class="text-white mx-2">XRP</a>
+            <a href="/bnb" class="text-white mx-2">BNB</a>
+            <a href="/dogecoin" class="text-white mx-2">Dogecoin</a>
+        </div>
+    </nav>
+    {% block content %} {% endblock %}
+</body>
+</html>
