@@ -33,3 +33,10 @@ def get_crypto_data(crypto):
         return response.json()
     else:
         return None
+def get_crypto_market_chart(crypto):
+    url = f"https://api.coingecko.com/api/v3/coins/{crypto}/market_chart?vs_currency=usd&days=30"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
