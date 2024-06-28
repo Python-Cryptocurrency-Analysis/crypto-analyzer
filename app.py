@@ -25,9 +25,9 @@ def chart_data(crypto):
 def global_market_cap():
     data = get_global_crypto_data()
     if data:
-        return render_template('global_market_cap.html', data=data)
+        return render_template('global_market_cap.html', data=data, error=None)
     else:
-        return jsonify({"error": "No data found"}), 404
+        return render_template('global_market_cap.html', data=None, error="Rate limit exceeded. Please try again in a minute.")
 
 @app.route('/api/global_market_cap_data', methods=['GET'])
 def global_market_cap_data():
