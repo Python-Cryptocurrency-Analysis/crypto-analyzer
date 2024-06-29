@@ -33,3 +33,12 @@ def get_crypto_data(crypto):
         return response.json()
     else:
         return None
+    
+def get_trending_cryptos():
+    url = "https://api.coingecko.com/api/v3/search/trending"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data['coins']
+    else:
+        return None
