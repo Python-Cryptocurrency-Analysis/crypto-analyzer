@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+
+{% block title %} Trending {% endblock %}
+
+{% block content %}
+    <div class="flex flex-col justify-center items-center pt-6 h-screen" style="background-color: #1f2937;">
+        <div class="w-[1450px] h-full overflow-y-auto pb-24 rounded-lg grid grid-cols-3 gap-4">
+            {% if not trending %}
+                <div class="w-full h-[60px] flex items-center justify-center bg-red-500 text-white rounded-lg px-1">
+                    <span>Rate limit exceeded. Please try again in a minute.</span>
+                </div>
+            {% else %}
+                {% for coin in trending %}
+                    <div class="w-[450px] h-[180px] bg-[#273541] p-4 rounded-lg flex flex-col justify-between">
+                        <div class="flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <img src="{{ coin['item']['thumb'] }}" alt="" class="w-[70px] h-[70px] rounded-full">
+                                <div class="flex justify-center flex-col gap-2">
+                                    <a href="/{{ coin['item']['id'] }}" class="text-2xl font-bold tracking-wider" style="color: #dca54c">{{ coin['item']['name'] }}</a>
+                                    <span>Rank: {{ coin['item']['market_cap_rank'] }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 class="text-3xl font-bold tracking-wider">{{ "{:,.4f}".format(coin['item']['data']['price']) }}$</h1>
+                            </div>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <h1 class="text-4xl font-bold tracking-wider {% if coin['item']['data']['price_change_percentage_24h']['usd'] > 0 %}text-green-500{% else %}text-red-500{% endif %}">{% if coin['item']['data']['price_change_percentage_24h']['usd'] > 0 %}+{% endif %}{{ "{:.2f}".format(coin['item']['data']['price_change_percentage_24h']['usd']) }}%</h1>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
