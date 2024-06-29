@@ -33,7 +33,29 @@ def get_crypto_data(crypto):
         return response.json()
     else:
         return None
-    
+
+def get_crypto_market_chart(crypto):
+    url = f"https://api.coingecko.com/api/v3/coins/{crypto}/market_chart?vs_currency=usd&days=30"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+        
+def get_global_crypto_data():
+    url = "https://api.coingecko.com/api/v3/global"
+    response = requests.get(url)
+    if response.status_code == 200:
+        res = response.json()
+        data = {
+            "active_cryptocurrencies": res["data"]['active_cryptocurrencies'],
+            "market_cap_percentage": res["data"]['market_cap_percentage'],
+            "market_cap_change_percentage_24h_usd": res["data"]["market_cap_change_percentage_24h_usd"]
+        }
+        return data
+    else:
+        return None
+
 def get_trending_cryptos():
     url = "https://api.coingecko.com/api/v3/search/trending"
     response = requests.get(url)
